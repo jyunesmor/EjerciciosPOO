@@ -12,14 +12,18 @@ public class Ahorcado {
     private String pBuscar;
     private char cnotLetra;
     private int cintentos;
+    private String letra;
+    private int cantLetrasEncontradas;
 
     public Ahorcado() {
     }
 
-    public Ahorcado(String pBuscar, char cnotLetra, int cintentos) {
+    public Ahorcado(String pBuscar, char cnotLetra, int cintentos, String letra,int cantLetrasEncontradas) {
         this.pBuscar = pBuscar;
         this.cnotLetra = cnotLetra;
         this.cintentos = cintentos;
+        this.letra = letra;
+        this.cantLetrasEncontradas = cantLetrasEncontradas;
     }
 
     public String getpBuscar() {
@@ -44,6 +48,22 @@ public class Ahorcado {
 
     public void setCintentos(int cintentos) {
         this.cintentos = cintentos;
+    }
+
+    public String getLetra() {
+        return letra;
+    }
+
+    public void setLetra(String letra) {
+        this.letra = letra;
+    }
+
+    public int getCantLetrasEncontradas() {
+        return cantLetrasEncontradas;
+    }
+
+    public void setCantLetrasEncontradas(int cantLetrasEncontradas) {
+        this.cantLetrasEncontradas = cantLetrasEncontradas;
     }
     
     

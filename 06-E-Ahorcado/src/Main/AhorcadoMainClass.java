@@ -16,9 +16,17 @@ public class AhorcadoMainClass {
 
         Ahorcado a = new Ahorcado();
         servicioAhorcado sa = new servicioAhorcado();
-        
-        sa.crearJuego(a);
-        sa.longitud(a);
+
+//        sa.getCrearJuego(a);
+//        System.out.println("");
+//        sa.getLongitud(a);
+//        System.out.println("");
+//        sa.getBuscar(a);
+//        System.out.println("");
+//        sa.getEncontradas(a);
+//        System.out.println(a.getCintentos());
+          sa.getJuego(a);
+ 
     }
-    
+
 }
