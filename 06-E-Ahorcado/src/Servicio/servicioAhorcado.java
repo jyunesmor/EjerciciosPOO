@@ -99,10 +99,12 @@ public class servicioAhorcado {
         int cletra = 0;
         int x = 0;
         int nvacant = 0;
+        int posl = 0;
         for (int i = 0; i < h.getpBuscar().length(); i++) {
             if (h.getpBuscar().substring(x,x+1).equalsIgnoreCase(h.getLetra())) {
-                 cletra++;
-                 System.out.print(" "+h.getLetra()+" ");
+                posl = i;
+                cletra++;
+                System.out.print(" "+h.getLetra()+" ");
             } else {
                 System.out.print(" x ");
             }
