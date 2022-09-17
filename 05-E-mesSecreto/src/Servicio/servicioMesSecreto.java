@@ -35,7 +35,7 @@ public class servicioMesSecreto {
           System.out.println(ops.toUpperCase());    
     }
 
-    public  void resolverAsertijo(mesSecreto ms){
+    public void resolverAsertijo(mesSecreto ms){
        
         if (ms.getMes().equalsIgnoreCase(ms.getMesSecreto())) {
                 System.out.println(" haz acertado!!!!!".toUpperCase());

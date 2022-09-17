@@ -9,7 +9,7 @@ package Entidad;
 public class NIF {
     
     private int DNI;
-    private char letra;
+    private char  letra;
     private String nombre;
 
     public NIF() {

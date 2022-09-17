@@ -21,7 +21,7 @@ package Entidad;
 
 public class mesSecreto {
     
-    private String mes;
+    private String  mes;
     private String mesSecreto;    
     
     public mesSecreto() {

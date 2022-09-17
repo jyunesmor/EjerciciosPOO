@@ -1,176 +1,137 @@
-/*
-• Metodo crearJuego(): le pide la palabra al usuario y cantidad de jugadas máxima. Con
-    la palabra del usuario, pone la longitud de la palabra, como la longitud del vector.
-    Después ingresa la palabra en el vector, letra por letra, quedando cada letra de la
-    palabra en un índice del vector. Y también, guarda en cantidad de jugadas máximas, el
-    valor que ingresó el usuario y encontradas en 0.
-• Método longitud(): muestra la longitud de la palabra que se debe encontrar. Nota:
-    buscar como se usa el vector.length.
-• Método buscar(letra): este método recibe una letra dada por el usuario y busca sila
-    letra ingresada es parte de la palabra o no. También informará si la letra estaba o no.
-• Método encontradas(letra): que reciba una letra ingresada por el usuario y muestre
-    cuantas letras han sido encontradas y cuantas le faltan. Este método además deberá
-    devolver true si la letra estaba y false si la letra no estaba, ya que, cada vez que se
-    busque una letra que no esté, se le restará uno a sus oportunidades.
-• Método intentos(): para mostrar cuantas oportunidades le queda al jugador.
-• Método juego(): el método juego se encargará de llamar todos los métodos
-    previamente mencionados e informará cuando el usuario descubra toda la palabra o
-    se quede sin intentos. Este método se llamará en el main.
- */
+
 package Servicio;
 
 import Entidad.Ahorcado;
 import java.util.Scanner;
 
 public class servicioAhorcado {
-    Scanner leer = new Scanner(System.in).useDelimiter("\n");   
 
+    Scanner leer = new Scanner(System.in).useDelimiter("\n");
+    int cantletra = 0;
     
-    public void getCrearJuego(Ahorcado h){
-    /*  • Metodo crearJuego(): le pide la palabra al usuario y cantidad de jugadas máxima. Con
+    public void getCrearJuego(Ahorcado h) {
+        /*  • Metodo crearJuego(): le pide la palabra al usuario y cantidad de jugadas máxima. Con
     la palabra del usuario, pone la longitud de la palabra, como la longitud del vector.
     Después ingresa la palabra en el vector, letra por letra, quedando cada letra de la
     palabra en un índice del vector. Y también, guarda en cantidad de jugadas máximas, el
     valor que ingresó el usuario y encontradas en 0.  */
-        String palabra ;
+        String palabra;
         System.out.println(" Ingrese la Palabra a Utilizar");
         palabra = leer.nextLine();
-        System.out.println(" Ingrese los Intentos Maximos a realizar");
-        h.setCantJugadasMaximas(leer.nextInt());
+        h.setCantJugadasMaximas(palabra.length());
+        System.out.println(" La cantidad de Intentos son: " + h.getCantJugadasMaximas());
         // Creamos y cargamos Vector palabra
-        String [] vector = new String [palabra.length()];
-        String [] vector1 = new String [palabra.length()];
-     
-        int x = 0;
-             for (int i = 0; i < palabra.length(); i++) {
-                 vector[i] = palabra.substring(i,i+1);
-                 vector1[i] = "_";
-                  x++;
-              }
-             h.setPalabra(vector);
-             h.setPaAux(vector1);
-        
-         // Mostramos Vector palabra
-        System.out.println("-----------------------");
+        h.setPalabra(new String [palabra.length()]);
+        h.setPaAux(new String [palabra.length()]);
         for (int i = 0; i < palabra.length(); i++) {
-            System.out.println(" " + h.getPalabra()[i] + " caracter " + i);
+            h.getPalabra()[i] = palabra.substring(i, i + 1);
+            h.getPaAux()[i] = "_";   
         }
-        System.out.println("-----------------------");
-        
-    }
-    
-    public int getLongitud(Ahorcado h){
-    /*  • Método longitud(): muestra la longitud de la palabra que se debe encontrar. Nota:
-    buscar como se usa el vector.length.  */
+    } // Fin getCrearJuego
+
+    public int getLongitud(Ahorcado h) {
+        /*  • Método longitud(): muestra la longitud de la palabra que se debe encontrar. Nota:
+    buscar como se usa el vector.length. */
         System.out.println("");
-        System.out.println(" La Longitud de la Palabra a encontrar es de: " + h.getPalabra().length );
+        System.out.println(" La Longitud de la Palabra a encontrar es de: " + h.getPalabra().length);
         System.out.println("");
-         int longitud = h.getPalabra().length;
-         return longitud;
+        int longitud = h.getPalabra().length;
+        return longitud;
     }
-    
-    public void getBuscar(Ahorcado h){
-    /*  • Método buscar(letra): este método recibe una letra dada por el usuario y busca si la
-    letra ingresada es parte de la palabra o no. También informará si la letra estaba o no. */ 
-        
-        System.out.println("¿ Ingrese la Letra que considera esta dentro de la palabra ?");
-        String le = leer.next();
-        h.setLetra(le);
-        int cletra = 0;
-        int x = 0;
-        for (int i = 0; i < h.getPalabra().length; i++) {
-            if ( h.getPalabra()[i].equals(le)) {
-                 cletra++;             
-            } 
-           x++;
-        }
-        if (cletra >= 1) {
-                System.out.println(" La letra esta contenida esta en la Palabra\n " + le.toUpperCase());
-            } else {
-                System.out.println(" La letra no esta dentro de la Palabra\n " + le.toUpperCase());
-            }
-    }
-     
-    public boolean getEncontradas(Ahorcado h){
-    /*  • Método encontradas(letra): que reciba una letra ingresada por el usuario y muestre
+
+    public boolean getEncontradas(Ahorcado h) {
+        /*  • Método encontradas(letra): que reciba una letra ingresada por el usuario y muestre
     cuantas letras han sido encontradas y cuantas le faltan. Este método además deberá
     devolver true si la letra estaba y false si la letra no estaba, ya que, cada vez que se
-    busque una letra que no esté, se le restará uno a sus oportunidades.*/   
-        String [] vec = new String [h.getPalabra().length];
-        boolean flag;
+    busque una letra que no esté, se le restará uno a sus oportunidades.*/
+        boolean flag = false;
         int cletra = 0;
-        int cantletra = 0;
-        
+        // buscar letra dentro de la palabra
         for (int i = 0; i < h.getPalabra().length; i++) {
-            if ( h.getPalabra()[i].equals(h.getLetra())) {
-                if (h.getPaAux()[i].equals("_")){
-                    vec[i]= h.getLetra();
-                      cletra++;
+            if (h.getPalabra()[i].equalsIgnoreCase(h.getLetra())) {
+                if (h.getPaAux()[i].equals("_")) {
+                    h.getPaAux()[i] = h.getLetra().toUpperCase();
+                    cletra++;
                 }
-            } else {
-                vec[i]= "_";
-            }
+                   flag = true;
+            } 
         }
         cantletra = h.getCantLetrasEncontradas() + cletra;
         h.setCantLetrasEncontradas(cantletra);
-        h.setPaAux(vec);
+        int intentos = h.getCantJugadasMaximas();
+        if (!flag) {
+            intentos--;
+        }
+        h.setCantJugadasMaximas(intentos);
+       
+        return getBuscar(h);
+    } // Fin metodo getEncontradas
+
+    public boolean getBuscar(Ahorcado h) {
+        /*  • Método buscar(letra): este método recibe una letra dada por el usuario y busca si la
+    letra ingresada es parte de la palabra o no. También informará si la letra estaba o no. */
+ 
+        boolean flag = false;
+        int cletra = 0;
         for (int i = 0; i < h.getPalabra().length; i++) {
-             System.out.print( " "+h.getPaAux()[i].toUpperCase()+" ");
+            if (h.getPalabra()[i].equalsIgnoreCase(h.getLetra())) {
+                cletra++;
+            }
         }
-        System.out.println("");
-        if (cletra > 1) {
-            System.out.print(" La Letra " + h.getLetra() + " se encuentra en la palabra secreta " + cletra + " veces.");
-            System.out.print(" le restan por encontrar " + (getLongitud(h) - h.getCantLetrasEncontradas())+ " letras.");
-            return flag = true;
-            
-        } else if ( cletra == 0){
-            System.out.print(" La Letra no se encuentra en la palabra secreta.");
-             return flag = false;
+        if (cletra >= 1) {
+            System.out.println(" La letra esta contenida esta en la Palabra ");
+            System.out.println(" La cantidad de Letras encontradas es de " + h.getCantLetrasEncontradas());
+            System.out.println(" y la cantidad faltante es de " + (h.getPalabra().length - h.getCantLetrasEncontradas()) + " letras.");
+            System.out.println(" Los Intentos restantes son: " + h.getCantJugadasMaximas());
+            System.out.println("");
+            flag = true;
         } else {
-           System.out.print(" La Letra " + h.getLetra() + " se encuentra en la palabra secreta " + cletra + " vez.");
-           System.out.print(" le restan por encontrar " + (getLongitud(h) - h.getCantLetrasEncontradas())+ " letra.");
-           return flag = false;
+            System.out.println(" La letra no esta dentro de la Palabra ");
+            System.out.println(" Los Intentos restantes son: " + h.getCantJugadasMaximas());
         }
-    }
-    
-    public int getIntentos(Ahorcado h){
-    /*  • Método intentos(): para mostrar cuantas oportunidades le queda al jugador. */  
-  
-        int intento = h.getCantJugadasMaximas();
-        boolean flag = getEncontradas(h);
-        if (flag == false) {
-           intento--;
-        } 
-      
-             return intento;
-     }
+        return flag;
+        
+    } // Fin metodo getBuscar
+     
+    public void getMostrar (Ahorcado h){
+        for (int i = 0; i < h.getPaAux().length; i++) {
+           System.out.print("[ " + h.getPaAux()[i] + " ]");
+        }
+         System.out.println("");
+         System.out.println("");
+    } // Fin metodo getMostrar
         
     public void getJuego(Ahorcado h){
-    /* • Método juego(): el método juego se encargará de llamar todos los métodos
+            /* • Método juego(): el método juego se encargará de llamar todos los métodos
     previamente mencionados e informará cuando el usuario descubra toda la palabra o
     se quede sin intentos. Este método se llamará en el main. */
-    
-    
-    
-        int bandera = 3;
-        getCrearJuego(h);
+            
+            
+            System.out.println(" ----------------- ");
+            System.out.println("    EL AHORCADO    ");
+            System.out.println(" ----------------- ");
+            System.out.println("");  
+            getCrearJuego(h);
+            String le; 
+            System.out.println("");   
+        do {
+            System.out.println("");  
+            getMostrar(h);
+            System.out.println("¿ Ingrese la Letra que considera esta dentro de la palabra ?");
+            le = leer.next();
+            h.setLetra(le);
+            getEncontradas(h);   
+           
+        } while (h.getCantJugadasMaximas() != 0 && h.getCantLetrasEncontradas() != h.getPalabra().length);
         System.out.println("");
         
-        
-      do{
-          
-          getBuscar(h);
-          System.out.println("");
-          getEncontradas(h);
-          System.out.println("");
-          System.out.println(" intentos " + getIntentos(h));
-          if ((h.getCantLetrasEncontradas() == getLongitud(h) || getIntentos(h) == 0)) {
-              bandera = 4;
-          } 
+        if (h.getCantJugadasMaximas() == 0) {
+            System.out.println(" Perdiste, Superaste la Cantidad de Opotunidades!!!!!!!!! ".toUpperCase());  
+        }
+        if ( h.getCantLetrasEncontradas() == h.getPalabra().length) {
+            getMostrar(h);
+            System.out.println(" Ganaste, encontraste la palabra escondida!!!!!!!!! ".toUpperCase());
+        }
+    } // Fin metodo getJuego
 
-      } while(bandera != 4);
-        
-//h.getCantLetrasEncontradas() < getLongitud(h) ||
-
-    }
-}
+} // Fin servicioAhorcado Class
